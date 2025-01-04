@@ -6,23 +6,23 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 8c01220a15841f6cd99795919b61bf22072598df9a7d343fd8b66399a772879d
   
 
 build: 
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
-  number: 0
+  number: 1
   noarch: python
 
 requirements:
 
   host:
-    - python >3.5
+    - python {{ python_min }}
     - pip
 
   run:
-    - python >3.5
+    - python >={{ python_min }}
     - xarray
     - intake-xarray
     - dask
@@ -35,6 +35,7 @@ test:
     - xarray
     - netcdf4
     - cftime
+    - python {{ python_min }}
   imports:
     - intake_cmip
   commands:
